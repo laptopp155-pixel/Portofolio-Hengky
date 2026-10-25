@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hengky Leonardus Tio | Portofolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef2f6;
+    --surface: #ffffff;
+    --ink: #14213a;
+    --muted: #55627a;
+    --line: #cfd8e3;
+    --accent: #2447f5;
+    --accent-ink: #ffffff;
+    --soft: #dfe7ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1626; --surface: #172138; --ink: #e8edf7; --muted: #9aa8c2;
+      --line: #2a3752; --accent: #7a93ff; --accent-ink: #0f1626; --soft: #20305c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1626; --surface: #172138; --ink: #e8edf7; --muted: #9aa8c2;
+    --line: #2a3752; --accent: #7a93ff; --accent-ink: #0f1626; --soft: #20305c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    background: var(--bg); color: var(--ink);
+    line-height: 1.6; font-size: 17px;
+  }
+  h1, h2, h3 { font-family: "Bricolage Grotesque", "Instrument Sans", sans-serif; line-height: 1.05; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Navigasi */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .brand { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; text-decoration: none; letter-spacing: -0.02em; }
+  .menu { display: flex; gap: 22px; align-items: center; font-size: 15px; font-weight: 500; }
+  .menu a { text-decoration: none; color: var(--muted); }
+  .menu a:hover { color: var(--ink); }
+  .toggle {
+    background: none; border: 1px solid var(--line); color: var(--ink);
+    border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+
+  /* Hero */
+  .hero { padding: 72px 0 80px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: center; }
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6.4rem); font-weight: 800; letter-spacing: -0.04em;
+  }
+  .hero h1 span { display: block; }
+  .hero h1 .outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+  .hero p { margin-top: 24px; max-width: 46ch; color: var(--muted); font-size: 1.1rem; }
+  .btns { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 12px 22px; border-radius: 10px; text-decoration: none;
+    font-weight: 600; font-size: 15px; border: 1px solid var(--ink);
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn.primary:hover { filter: brightness(1.1); }
+  .btn.ghost:hover { background: var(--soft); }
+
+  .photo {
+    aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; background: var(--soft);
+    border: 1px solid var(--line); display: grid; place-items: center; position: relative;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo .fallback {
+    position: absolute; inset: 0; display: none; place-items: center;
+    font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 5rem; color: var(--accent);
+  }
+  .photo.nofoto .fallback { display: grid; }
+
+  /* Section umum */
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  .head { margin-bottom: 40px; max-width: 60ch; }
+  .head h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; }
+  .head p { margin-top: 12px; color: var(--muted); }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; }
+  .about .desc p + p { margin-top: 16px; }
+  dl.facts { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 8px 24px; }
+  dl.facts div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  dl.facts div:last-child { border-bottom: 0; }
+  dl.facts dt { color: var(--muted); font-size: 15px; }
+  dl.facts dd { font-weight: 600; }
+
+  /* What I Can Do */
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .skill { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 26px; }
+  .skill h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
+  .skill p { color: var(--muted); font-size: 15.5px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .tags li { list-style: none; font-size: 13.5px; padding: 4px 11px; border-radius: 999px; background: var(--soft); font-weight: 500; }
+
+  /* Achievement */
+  .ach { display: grid; gap: 16px; }
+  .ach article {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 24px 28px; display: grid; grid-template-columns: 100px 1fr; gap: 24px;
+  }
+  .ach .year { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 2rem; color: var(--accent); letter-spacing: -0.03em; }
+  .ach h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
+  .ach .org { color: var(--muted); font-size: 15px; margin: 2px 0 8px; }
+  .ach a { color: var(--accent); font-weight: 600; font-size: 15px; }
+
+  /* Contact */
+  .contact { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+  .contact h2 { font-size: clamp(2.4rem, 6vw, 4.4rem); font-weight: 800; letter-spacing: -0.04em; }
+  .contact p { margin: 18px 0 28px; color: var(--muted); max-width: 44ch; }
+  .links { display: grid; gap: 12px; }
+  .links a {
+    display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px 20px; text-decoration: none;
+  }
+  .links a:hover { border-color: var(--accent); }
+  .links small { display: block; color: var(--muted); font-size: 13.5px; }
+  .links strong { font-weight: 600; word-break: break-all; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 820px) {
+    .hero .wrap, .about, .contact { grid-template-columns: 1fr; }
+    .skills { grid-template-columns: 1fr; }
+    .photo { max-width: 320px; }
+    .menu a:not(.keep) { display: none; }
+    .ach article { grid-template-columns: 1fr; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Hengky Leonardus Tio</a>
+    <div class="menu">
+      <a href="#about">About</a>
+      <a href="#skills">What I Can Do</a>
+      <a href="#achievement">Achievement</a>
+      <a href="#contact" class="keep">Contact</a>
+      <button class="toggle" id="toggle" type="button" aria-label="Ganti tema">Tema</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <h1>
+        <span>Hengky</span>
+        <span class="outline">Leonardus</span>
+        <span>Tio</span>
+      </h1>
+      <p>Mahasiswa Sistem Informasi Universitas Negeri Surabaya yang suka mengubah data dan ide menjadi sistem yang berguna.</p>
+      <div class="btns">
+        <a class="btn primary" href="#about">Kenali saya</a>
+        <a class="btn ghost" href="#contact">Hubungi saya</a>
+      </div>
+    </div>
+    <!-- Ganti foto: simpan foto kamu di folder yang sama dengan nama foto.jpg -->
+    <div class="photo" id="photo">
+      <img src="foto.jpg" alt="Foto Hengky Leonardus Tio" onerror="this.parentElement.classList.add('nofoto'); this.remove();">
+      <div class="fallback" aria-hidden="true">HT</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="head">
+        <h2>Tentang saya</h2>
+      </div>
+      <div class="about">
+        <div class="desc">
+          <p>Saya Hengky Leonardus Tio, mahasiswa Program Studi Sistem Informasi, Fakultas Teknik, Universitas Negeri Surabaya. Saya tertarik pada pemrograman, analisis data, dan cara teknologi membantu orang bekerja lebih efisien.</p>
+          <p>Di kampus saya belajar pemrograman Python, statistika, dan sistem operasi, 
+            serta aktif mengerjakan tugas kuliah. Portofolio ini menjadi tempat saya mengumpulkan 
+              kemampuan dan karya yang terus bertambah.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Nama</dt><dd>Hengky Leonardus Tio</dd></div>
+          <div><dt>NIM</dt><dd>26051214233</dd></div>
+          <div><dt>Riwayat Pendidikan</dt><dd>
+            S1 Sistem Informasi, Universitas Negeri Surabaya.</dd></div>
+          <div><dt>Aktivitas</dt><dd>Kuliah, mengerjakan tugas, dan mengikuti kegitatan-kegiatan 
+            kampus</dd></div>
+             <div><dt>Pengalaman</dt><dd>Saya pernah menjalani PKL di 
+              BPJS Ketenagakerjaan dan mengikuti lomba Teknik Desain 
+              Laman hingga tingkat nasional.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I CAN DO -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="head">
+        <h2>Yang bisa saya kerjakan</h2>
+        <p>Kemampuan dan tools yang saya pelajari selama SMK dan kuliah.</p>
+      </div>
+      <div class="skills">
+        <div class="skill">
+          <h3>Pemrograman dan web</h3>
+          <p>Menulis program untuk memecahkan masalah dan membuat halaman web sederhana.</p>
+          <ul class="tags"><li>Python</li><li>HTML</li><li>CSS</li><li>JavaScript</li><li>PHP</li><li>VS Code</li></ul>
+        </div>
+        <div class="skill">
+          <h3>Infrastruktur jaringan</h3>
+          <p>Memahami dasar jaringan komputer, merancang topologi, dan mengatur konfigurasi jaringan.</p>
+          <ul class="tags"><li>Jaringan komputer</li><li>Topologi jaringan</li><li>TCP/IP</li><li>Cisco Packet Tracer</li></ul>
+        </div>
+        <div class="skill">
+          <h3>Sistem dan desain</h3>
+          <p>Bekerja dengan command line, mengelola versi kode, dan merancang materi visual.</p>
+          <ul class="tags"><li>PowerShell</li><li>Git</li><li>GitHub</li><li>Canva</li><li>PowerPoint</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENT -->
+  <section id="achievement">
+    <div class="wrap">
+      <div class="head">
+        <h2>Pencapaian</h2>
+        <p>Catatan pencapaian dan pengalaman yang saya tempuh.</p>
+      </div>
+      <!-- GANTI isi tiga kartu ini dengan pencapaian aslimu -->
+      <div class="ach">
+        <article>
+          <div class="year">2025</div>
+          <div>
+            <h3>Lomba Kopetensi Siswa(LKS)-Teknik Desain Laman(web tecnology)-tingkat provinsi</h3>
+            <p class="org">Dinas Pendidikan dan Kebudayaan Provinsi Papua Tengah</p>
+            <p>Juara 1 lomba teknik desain laman tingkat provinsi Papua Tengah-Nabire</p>
+            <a href="#">Lihat bukti</a> 
+          </div>
+        </article>
+        <article>
+          <div class="year">2025</div>
+          <div>
+            <h3>Lomba Kopetensi Siswa(LKS)-Teknik Desain Laman(web tecnology)-tingkat nasional</h3>
+            <p class="org"> Kementerian Pendidikan Dasar dan Menengah (Kemendikdasmen) melalui Pusat Prestasi Nasional (Puspresnas).</p>
+            <p>Saya berpartisipasi mewakili Provinsi Papua Tengah-nabire dalam lomba Teknik Desain Laman-nasional di depok-jakarta </p>
+            <a href="#">Lihat bukti</a>
+          </div>
+        </article>
+        <article>
+          <div class="year">2025</div>
+          <div>
+            <h3>Praktik Kerja Lapangan</h3>
+            <p class="org">SMKN 2 Teknologi dan Rekayasa Nabire</p>
+            <p>Saya Melakukan Praktik Kerja Lapangan di BPJS Ketenagakerjaan Nabire yang saya lakukan mengelola data peserta bpjs,mengurus kartu bpjs,dan melakukan sosialisasi</p>
+            <a href="#">Lihat bukti</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact">
+      <div>
+        <h2>Mari bekerja sama</h2>
+        <p>Terbuka untuk diskusi, kolaborasi proyek, dan kesempatan belajar baru. Kirim pesan kapan saja.</p>
+        <div class="btns">
+          <a class="btn primary" href="mailto:laptopp155@gmail.com">Kirim email</a>
+          <a class="btn ghost" href="cv.jpg" download>Unduh CV</a>
+        </div>
+      </div>
+      <div class="links">
+        <a href="mailto:laptopp155@gmail.com"><small>Email</small><strong>laptopp155@gmail.com</strong></a>
+        <a href="https://github.com/laptopp155-pixel" target="_blank" rel="noopener"><small>GitHub</small><strong>github.com/laptopp155-pixel</strong></a>
+        <a href="https://www.linkedin.com/in/hengkytio/?isSelfProfile=true" target="_blank" rel="noopener"><small>LinkedIn</small><strong>linkedin.com/in/hengkytio</strong></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">&copy; 2026 Hengky Leonardus Tio. Seluruh hak cipta dilindungi.</div>
+</footer>
+
+<script>
+  // Tombol ganti tema (terang / gelap)
+  const root = document.documentElement;
+  document.getElementById("toggle").addEventListener("click", () => {
+    const dark = getComputedStyle(root).getPropertyValue("--bg").trim() === "#0f1626";
+    root.setAttribute("data-theme", dark ? "light" : "dark");
+  });
+</script>
+</body>
+</html>
